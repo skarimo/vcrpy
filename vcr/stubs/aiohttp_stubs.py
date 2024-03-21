@@ -245,7 +245,10 @@ def vcr_request(cassette, real_request):
         headers = kwargs.get("headers")
         auth = kwargs.get("auth")
         headers = self._prepare_headers(headers)
-        data = kwargs.get("data", kwargs.get("json"))
+        if kwargs.get("json"):
+            data = json.dumps(kwargs["json"])
+        else:
+            data = kwargs.get("data")
         params = kwargs.get("params")
         cookies = kwargs.get("cookies")
 
